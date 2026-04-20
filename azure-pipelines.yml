@@ -2,10 +2,9 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-#test
 
 trigger:
-- master
+- none
 
 pool:
   vmImage: ubuntu-latest
@@ -18,3 +17,18 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    versionn: '10.x'
+  displayName: 'Install .NET SDK'
+
+- script: dotnet restore
+  displayName: 'Restoring Packages'
+
+- script: dotnet build --configuration Release
+  displayName: 'Build'
+ 
+ 
+  
